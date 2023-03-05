@@ -37,12 +37,6 @@ public class PlayerControls : MonoBehaviour
     float pitchDueToControl;
 
     float yawDueToPosition;
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-       
-    }
 
     // Update is called once per frame
     void Update()
@@ -54,13 +48,18 @@ public class PlayerControls : MonoBehaviour
 
     void ControlRotation()
     {
-        pitchDueToPosition = transform.localRotation.y * positionPitchFactor;
-        pitchDueToControl = ythrow * controlPitchFactor;
-        pitch =  pitchDueToPosition + pitchDueToControl;
-        yaw = transform.localPosition.x * positionYawFactor;
-        roll = xthrow * controlRollFactor;
+        TiltProcessing();
 
         transform.localRotation = Quaternion.Euler(pitch, yaw, roll);
+    }
+
+    private void TiltProcessing()
+    {
+        pitchDueToPosition = transform.localRotation.y * positionPitchFactor;
+        pitchDueToControl = ythrow * controlPitchFactor;
+        pitch = pitchDueToPosition + pitchDueToControl;
+        yaw = transform.localPosition.x * positionYawFactor;
+        roll = xthrow * controlRollFactor;
     }
 
     private void ControlMovement()
@@ -68,53 +67,47 @@ public class PlayerControls : MonoBehaviour
         xthrow = Input.GetAxis("Horizontal");
         ythrow = Input.GetAxis("Vertical");
 
+        PositionProcessing();
+
+        transform.localPosition = new Vector3(xClampPos, yClampPos, transform.localPosition.z);
+    }
+
+    private void PositionProcessing()
+    {
         xOffset = xthrow * speedX;
         yOffset = ythrow * speedY;
         rawPosX = transform.localPosition.x + xOffset;
         rawPosY = transform.localPosition.y + yOffset;
 
+
         xClampPos = Mathf.Clamp(rawPosX, -xRange, xRange);
         yClampPos = Mathf.Clamp(rawPosY, -yRange, yRange);
-
-        transform.localPosition = new Vector3(xClampPos, yClampPos, transform.localPosition.z);
     }
 
     void ProcessFiring()
     {
         if (Input.GetButton("Fire1")) 
         {
-            lasers[1].SetActive(true);
+            ActivateLasers(1, true);
         }
         else
         {
-            lasers[1].SetActive(false);
+            ActivateLasers(1, false);
         }
-
-
         if (Input.GetButton("Fire2"))
         {
-            lasers[0].SetActive(true);        
+            ActivateLasers(0, true);
         }
         else
         {
-            lasers[0].SetActive(false);
+            ActivateLasers(0, false);
         }
         
-
     }
 
-    void ActivateLasers()
+    void ActivateLasers(int index, bool active)
     {
-        foreach(GameObject laser in lasers)
-        {
-            laser.SetActive(true);
-        }
-    }
-    void DeactivateLasers()
-    {
-        foreach (GameObject laser in lasers)
-        {
-            laser.SetActive(false);
-        }
+        var emissionModule = lasers[index].GetComponent<ParticleSystem>().emission;
+        emissionModule.enabled = active;
     }
 }
