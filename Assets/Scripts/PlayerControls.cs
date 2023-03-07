@@ -6,10 +6,10 @@ public class PlayerControls : MonoBehaviour
 {
     float xthrow;
     float ythrow;
-
+    [Header("Ship's Speed")]
     [SerializeField] float speedY = 1;
     [SerializeField] float speedX = 1;
-
+    [Header("Movement Range")]
     [SerializeField] float xRange = 5f;
     [SerializeField] float yRange = 5f;
 
@@ -23,7 +23,7 @@ public class PlayerControls : MonoBehaviour
     float pitch = 0f;
     float yaw = 0f;
     float roll = 0f;
-
+    [Header("Tilt Factor")]
     [SerializeField] float positionPitchFactor = -1f;
     [SerializeField] float controlPitchFactor = -10f;
 
