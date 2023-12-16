@@ -2,15 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class EnemyLogic : MonoBehaviour
 {
     [SerializeField] GameObject crashVFX;
-    [SerializeField] GameObject cd;
+    [SerializeField] GameObject collider;
     [SerializeField] int scoreAmount;
     [SerializeField] int hitpoint = 1;
 
     GameObject parentGameObject;
-    Rigidbody rb;
+    Rigidbody rigidBody;
     ScoreBoard scoreboard;
 
     private void Start()
@@ -30,8 +30,8 @@ public class Enemy : MonoBehaviour
     }
     private void AddRigidBody()
     {
-        rb = gameObject.AddComponent<Rigidbody>();
-        rb.useGravity = false;
+        rigidBody = gameObject.AddComponent<Rigidbody>();
+        rigidBody.useGravity = false;
     }
 
     
@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
     {
         GameObject vfx = Instantiate(crashVFX, transform.position, Quaternion.identity);
         vfx.transform.parent = parentGameObject.transform;
-        cd.SetActive(false);
+        collider.SetActive(false);
         Destroy(this.gameObject);
     }
 }

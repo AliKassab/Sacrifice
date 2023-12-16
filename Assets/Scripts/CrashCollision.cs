@@ -3,31 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Collision : MonoBehaviour
+public class CrashCollision : MonoBehaviour
 {
-    PlayerControls controls;
-    MeshRenderer mr;
-    [SerializeField] GameObject Timeline;
-    [SerializeField] float delayTime = 1f;
-    [SerializeField] ParticleSystem crashVFX;
+    //This Script processes the crashing of the player after colliding with an obstacle
+
+    private PlayerControls controls;
+    private MeshRenderer meshRenderer;
+    [SerializeField] private GameObject Timeline;
+    [SerializeField] private float delayTime = 1f;
+    [SerializeField] private ParticleSystem crashVFX;
 
     private void Start()
     {
         controls = GetComponent<PlayerControls>();
-        mr = GetComponent<MeshRenderer>();
+        meshRenderer = GetComponent<MeshRenderer>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         CrashSequence();
-        Invoke("Reset", delayTime);
+        Invoke(nameof(Reset), delayTime);
     }
 
     private void CrashSequence()
     {
         crashVFX.Play();
         controls.enabled = false;
-        mr.enabled = false;
+        meshRenderer.enabled = false;
         //Timeline.SetActive(false);
     }
 
