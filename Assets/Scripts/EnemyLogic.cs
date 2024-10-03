@@ -5,8 +5,10 @@ using UnityEngine;
 public class EnemyLogic : MonoBehaviour
 {
     [SerializeField] GameObject crashVFX;
+    [SerializeField] GameObject crashSFX;
     [SerializeField] GameObject collider;
     [SerializeField] int scoreAmount;
+    [SerializeField] int killAmount;
     [SerializeField] int hitpoint = 1;
 
     GameObject parentGameObject;
@@ -45,8 +47,11 @@ public class EnemyLogic : MonoBehaviour
     private void KillEnemy()
     {
         GameObject vfx = Instantiate(crashVFX, transform.position, Quaternion.identity);
+        GameObject sfx = Instantiate(crashSFX, transform.position, Quaternion.identity);
         vfx.transform.parent = parentGameObject.transform;
+        sfx.GetComponent<AudioSource>().Play(); 
         collider.SetActive(false);
+        scoreboard.increaseScore(killAmount);
         Destroy(this.gameObject);
     }
 }

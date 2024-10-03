@@ -99,9 +99,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crashVFX: {fileID: 1000011797152326, guid: acf39d9f4addf294d93fa56fa373961b, type: 3}
+  crashSFX: {fileID: 2261880216618991497, guid: 95df99eaa2c8d2945ac5931ae59322ca, type: 3}
   collider: {fileID: 6246905147572573491}
-  scoreAmount: 15
-  hitpoint: 5
+  scoreAmount: 75
+  killAmount: 75
+  hitpoint: 3
 --- !u!95 &1012265563897437713
 Animator:
   serializedVersion: 5
