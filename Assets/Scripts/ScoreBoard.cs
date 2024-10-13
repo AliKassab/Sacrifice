@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 public class ScoreBoard : MonoBehaviour
 {
-    int score;
+    float score;
     TMP_Text scoretext;
 
     private void Start()
@@ -13,7 +13,7 @@ public class ScoreBoard : MonoBehaviour
         scoretext.text = "Score: 0";
     }
 
-    public void increaseScore(int incAmount)
+    public void increaseScore(float incAmount)
     {
         score += incAmount;
         scoretext.text = "Score: " + score.ToString();

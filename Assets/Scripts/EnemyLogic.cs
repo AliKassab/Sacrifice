@@ -7,9 +7,9 @@ public class EnemyLogic : MonoBehaviour
     [SerializeField] GameObject crashVFX;
     [SerializeField] GameObject crashSFX;
     [SerializeField] GameObject collider;
-    [SerializeField] int scoreAmount;
-    [SerializeField] int killAmount;
-    [SerializeField] int hitpoint = 1;
+    [SerializeField] float scoreAmount;
+    [SerializeField] float killAmount;
+    [SerializeField] float hitpoint = 1;
 
     GameObject parentGameObject;
     Rigidbody rigidBody;
@@ -41,7 +41,7 @@ public class EnemyLogic : MonoBehaviour
     private void ProcessHit()
     {   
         hitpoint--;
-        scoreboard.increaseScore(scoreAmount);
+        scoreboard.increaseScore(scoreAmount * Stats.Instance.scoreMultiplier);
     }
 
     private void KillEnemy()
@@ -51,7 +51,7 @@ public class EnemyLogic : MonoBehaviour
         vfx.transform.parent = parentGameObject.transform;
         sfx.GetComponent<AudioSource>().Play(); 
         collider.SetActive(false);
-        scoreboard.increaseScore(killAmount);
+        scoreboard.increaseScore(killAmount * Stats.Instance.scoreMultiplier);
         Destroy(this.gameObject);
     }
 }

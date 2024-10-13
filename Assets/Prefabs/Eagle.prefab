@@ -103,7 +103,7 @@ MonoBehaviour:
   collider: {fileID: 5232129517236212114}
   scoreAmount: 150
   killAmount: 150
-  hitpoint: 10
+  hitpoint: 200
 --- !u!95 &4081749454474008750
 Animator:
   serializedVersion: 5
